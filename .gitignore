@@ -1,0 +1,13 @@
+*src.egg-info/
+*.png
+*.jpeg
+*.pdf
+*prova*
+*/__pycache__*
+exploratory_analysis/
+circuits/
+data/
+stranded_prep_explo.ipynb
+*.tsv
+*.csv
+*.txt
