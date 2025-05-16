@@ -15,6 +15,7 @@ import argparse
 
 from src.utils import load_triplets, filter_triplets, prepare_sents, make_labels
 from src.prompts import PROMPTS, models2try
+# from src.eap_data_tools import EAPDataset, collate_EAP, get_logit_positions, logit_diff, load_model_eap, make_eap_input_df
 
 from typing import Literal, List, Dict, Union, Tuple, Optional
 
@@ -83,7 +84,7 @@ def load_model_eap(model_name:str):
 
     return model
 
-def make_eap_iunput_df(prompt, triplets2consider, model):
+def make_eap_input_df(prompt, triplets2consider, model):
     """
     Format a df as expected by a EAPDataset and dataloader
     """
@@ -141,7 +142,7 @@ def isolate_circuit(model, g, dataloader, metric, prompt, steps = range(0, 30000
         g.apply_topn(topk, True)
         results = evaluate_graph(model, g, dataloader, partial(metric, loss=False, mean=False)).mean().item()
         performances[step] = [results]
-        if round(results, 2) <= treshold:
+        if round(results, 2) <= treshold: #TODO elaborate on that and find a way to isoalte the smallest circuit possible 
             if method == "best_circ":
                 print(f"The topk for 85% of the preformance is reached around {topk} retained edges")
                 return baseline, results, g
@@ -198,9 +199,10 @@ if __name__ == "__main__":
     triplets2consider = filter_triplets(triplets, model.tokenizer)
     
     # iterate over the prompts to get results 
+    print(f"Starting analysis, method = {args.method}")
     all_prompt_dfs = []
     for prompt in PROMPTS:
-        eap_input_df = make_eap_iunput_df(PROMPTS[prompt], triplets2consider, model)
+        eap_input_df = make_eap_input_df(PROMPTS[prompt], triplets2consider, model)
         #convert the df in dataset and dataloader
         ds = EAPDataset(eap_input_df)
         dataloader = ds.to_dataloader(10)
