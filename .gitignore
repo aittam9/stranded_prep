@@ -11,3 +11,6 @@ stranded_prep_explo.ipynb
 *.tsv
 *.csv
 *.txt
+activation_patching/
+probing/
+*.ipynb

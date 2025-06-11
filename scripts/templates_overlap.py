@@ -68,13 +68,13 @@ if __name__ == "__main__":
     fig.get_figure().savefig(f"{plots_outdir}/inter_prompt_iou.png")
     print(f"Figure saved!")
 
-    #dataframe IoU
+    #dataframe edge recall
     labels = list(only_ingraph_edges.keys())
     er_df = pd.DataFrame(er_matrix, columns = labels, index = labels)
     er_df.to_csv(f"{outdir}/inter_prompt_er.csv")
     print(f"Dataframe saved!")
 
-    #plot IoU
+    #plot edge recall
     avg_er = np.mean(er_matrix).round(2)
     fig = sns.heatmap(er_df, cmap = "Blues", cbar = False, annot= True)
     plt.title(f"EdgeRecall of different templates circuits (Avg {avg_er})")

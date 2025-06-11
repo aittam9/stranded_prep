@@ -95,4 +95,22 @@ if __name__ == "__main__":
 
     #save figure
     fig.get_figure().savefig(f"{plots_outdir}/cross_template_faith.png")
-    print(f"Dataframe saved at {plots_outdir}")
+    print(f"Figure 1 saved at {plots_outdir}")
+
+    # Transform performances to ratio against template-derived circuit
+    # res_df = res_df.iloc[:,:-1]
+    # new = np.zeros((5,5))
+    # for i in range(5):
+    #     for j in range(5):
+    #         if i== j:
+    #             gold = res_df.iloc[i,j] 
+    #         pct = res_df.iloc[i,j]/gold
+    #         new[i,j] = round(pct,2) 
+
+    # df_pct = pd.DataFrame(new, columns = df.columns[:-1], index = df.index)
+    # fig2 = sns.heatmap(df_pct, cmap = "Blues", annot = True, cbar = False)
+    # plt.tight_layout()
+
+    # save figure
+    # fig2.get_figure().savefig(f"{plots_outdir}/cross_template_faith_pct.png")
+    # print(f"Figure 2 (pct) saved at {plots_outdir}")
