@@ -101,5 +101,5 @@ if __name__ == "__main__":
         print(f"After: GPU memory available at the moment: {torch.cuda.mem_get_info()[0]/1000000000}/ {torch.cuda.mem_get_info()[1]/1000000000}")
         
         #TODO make plots
-
-    
+        #TODO maybe remove the loop and focus on a single prompt and compose a bash script to run all template
+ 

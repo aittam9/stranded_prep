@@ -10,8 +10,8 @@ import json
 from transformers.utils.logging import disable_progress_bar
 disable_progress_bar() 
 
-from utils import load_triplets, filter_triplets, get_accuracy, get_avg_logit_diff, get_relative_accuracy, make_labels, prepare_sents, format_res4plot
-from prompts import PROMPTS, models2try
+from src.utils import load_triplets, filter_triplets, get_accuracy, get_avg_logit_diff, get_relative_accuracy, make_labels, prepare_sents, format_res4plot
+from src.prompts import PROMPTS, models2try
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
