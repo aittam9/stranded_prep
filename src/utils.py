@@ -13,7 +13,7 @@ from transformer_lens import  HookedTransformer
 import matplotlib.pyplot as plt
 #from neel_plotly import line, imshow, scatter
 import gc 
-
+from typing import Tuple, List, Dict, Optional, Union
 
 def load_triplets(path):
     triplets = [i for i in csv.reader(open(path, "r") )if i][1:]
@@ -67,7 +67,7 @@ def get_relative_accuracy(logits, labels):
       incorrect_logits = logits.gather(1, labels[:, 1].unsqueeze(1))
       return ((correct_logits > incorrect_logits).sum().item() / labels.shape[0]) * 100
 
-def prepare_sents(template_pair, triplets2consider):
+def prepare_sents(template_pair, triplets2consider)-> Tuple[List,List]:
     """
       Prepare the sentences to be fed to the model formatting them in the template.
       Arguments:

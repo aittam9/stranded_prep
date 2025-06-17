@@ -14,3 +14,5 @@ stranded_prep_explo.ipynb
 activation_patching/
 probing/
 *.ipynb
+*.pkl
+pca/
