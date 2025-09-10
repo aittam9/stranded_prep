@@ -129,9 +129,7 @@ if __name__ == "__main__":
 
 
     # evaluate only-core circuit against each template
-    
     print(f"\nComputing faithfulness of the core circuit against all templates")
-    
     # Load the saved core edges into an empty graph instantiated from model
     print(f"Loading core edges into empty graph...")
     core_edges = pickle.load(open(os.path.join(circuits_indir, "core_circuit_edges.pkl"),"rb"))
