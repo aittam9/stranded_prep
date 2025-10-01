@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 from eap.graph import Graph 
-import matplotlib as plt 
+import matplotlib.pyplot as plt 
 import seaborn as sns 
 import argparse
 import seaborn as sns
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     parser.add_argument("--only_core", "-oc", action="store_true", help = "allows to only compute the intersection across circuits")
     args = parser.parse_args()
 
-    print(args.only_core)
+    # print(args.only_core)
     
 
     indir = f"../circuits/{args.model}/pt_circuits"
@@ -29,9 +29,10 @@ if __name__ == "__main__":
     #load circuits into graphs
     circuits = {}
     for el in os.listdir(indir):
-        name = el.split(".")[0]
-        circuits[name] = Graph.from_pt(os.path.join(indir,el))
-        print(f"Loaded {name}")
+        if el.endswith("pt"):
+            name = el.split(".")[0]
+            circuits[name] = Graph.from_pt(os.path.join(indir,el))
+            print(f"Loaded {name}")
 
     #get only the edges included into each graph
     only_ingraph_edges= {}
@@ -57,6 +58,7 @@ if __name__ == "__main__":
                 er_matrix[n,j] = edge_recall
 
                 print(f"The IoU between {k} and {k2} is {round(iou,2)}")
+                print(f"The Edge Recall of {k} and {k2} is {round(edge_recall,2)}")
             print("\n----------------------------------------------------------------------------------------")
 
         #dataframe IoU
@@ -68,7 +70,8 @@ if __name__ == "__main__":
         #plot IoU
         avg_iou = np.mean(iou_matrix).round(2)
         fig = sns.heatmap(iou_df, cmap = "Blues", cbar = False, annot= True)
-        plt.title(f"IoU of different templates circuits (Avg {avg_iou})")
+        fig.set(title = f"IoU of different templates circuits (Avg {avg_iou})")
+        print("That Iss")
         plt.tight_layout()
         plt.show()
         fig.get_figure().savefig(f"{plots_outdir}/inter_prompt_iou.png")
@@ -83,7 +86,7 @@ if __name__ == "__main__":
         #plot edge recall
         avg_er = np.mean(er_matrix).round(2)
         fig = sns.heatmap(er_df, cmap = "Blues", cbar = False, annot= True)
-        plt.title(f"EdgeRecall of different templates circuits (Avg {avg_er})")
+        fig.set(title = f"EdgeRecall of different templates circuits (Avg {avg_er})")
         plt.tight_layout()
         plt.show()
         fig.get_figure().savefig(f"{plots_outdir}/inter_prompt_er.png")
