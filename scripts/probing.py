@@ -123,7 +123,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     
-    # TODO make directories for current model
+    # make directories to save results
     output_dir = f"../probing/{args.model}/"
     plots_dir = f"../probing/{args.model}/plots/"
     if not os.path.exists(output_dir):
