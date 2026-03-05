@@ -21,7 +21,7 @@ from typing import Literal, List, Dict, Union, Tuple, Optional
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-#adapted from micheal hanna tutorial
+##############----------------------------adapted from EAP-IG library #####################
 def collate_EAP(xs):
     clean, corrupted, labels = zip(*xs)
     clean = list(clean)
