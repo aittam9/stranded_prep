@@ -16,3 +16,4 @@ probing/
 *.ipynb
 *.pkl
 pca/
+scripts/ablation.py
