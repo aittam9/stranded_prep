@@ -10,18 +10,36 @@ Large Language Models are often considered the best computational testbeds for l
 
 
 
-```
-find_circuit.py: isolate meaningful circuits. best_circ finds circuits on a given threshold. --trend compute all circuits under a threshold.
-```
-``` 
-templates_overlap.py: compute IoU and Edge recall between circuits pairs and common compontents intersection among circuits. If --only_core is passed compute only common intersection.
+### Scripts and Example Usage
+
+Run commands from the repository root.
+
+find_circuit.py: isolate meaningful circuits.
+- best_circ mode (default): find circuits around a target performance threshold.
+- trend mode: compute performance across a full edge-retention trend.
+
+```bash
+python scripts/find_circuit.py --model llama3.2-1b
+python scripts/find_circuit.py --model llama3.2-1b --method best_circ --threshold 86 --decrease_factor 1000 30000 1000
+python scripts/find_circuit.py --model llama3.2-1b --method trend --decrease_factor 1000 30000 1000
 ```
 
-```
-cross_template_faith.py: compute performance of each given template-circuit  and common circuit against all others.
-If --only_core is passed compute only common circuit against all templates.
+templates_overlap.py: compute IoU and Edge Recall between template circuits, and compute common components.
+
+```bash
+python scripts/templates_overlap.py --model llama3.2-1b
+python scripts/templates_overlap.py --model llama3.2-1b --only_core
 ```
 
-```python
-python activation_patching.py
+cross_template_faith.py: compute cross-template faithfulness for each template-circuit and for the common core circuit.
+
+```bash
+python scripts/cross_template_faith.py --model llama3.2-1b
+python scripts/cross_template_faith.py --model llama3.2-1b --only_core
+```
+
+activation_patching.py: run activation patching analyses and save per-template patching tensors.
+
+```bash
+python scripts/activation_patching.py --model llama3.2-1b
 ```
